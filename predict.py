@@ -3,7 +3,7 @@ import numpy as np
 import torch
 import os
 import cv2
-from model.unet_model import UNet
+from unet_model import UNet
 
 if __name__ == "__main__":
     # 选择设备，有cuda用cuda，没有就用cpu

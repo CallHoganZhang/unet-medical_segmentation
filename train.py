@@ -1,5 +1,5 @@
-from model.unet_model import UNet
-from utils.dataset import ISBI_Loader
+from unet_model import UNet
+from dataset import ISBI_Loader
 from torch import optim
 import torch.nn as nn
 import torch
