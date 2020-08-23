@@ -174,7 +174,7 @@ def train_net(net, device, data_path, epochs=40, batch_size=1, lr=0.00001):
                                                shuffle=True)
     optimizer = optim.RMSprop(net.parameters(), lr=lr, weight_decay=1e-8, momentum=0.9)
     criterion = nn.BCEWithLogitsLoss()
-    best_loss = 9999
+    best_loss = float("inf")
     for epoch in range(epochs):
         n = len(train_loader)
         pbar = Progbar(target=n)
