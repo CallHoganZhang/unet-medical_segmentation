@@ -2,41 +2,59 @@
 <head>
     <meta charset='utf-8'>
     <script src='https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js'></script>
+    <title>血管细胞分割</title>
 </head>
 
 <body>
+<p>请在下方输入需要测试的图片</p>
 <input id='upload' type='file' accept="image/png, image/jpeg" multiple><br>
+<img id="img1" src="" display="none">
+<div id="costTime"></div>
+<div id="lables"></div>
 <script>
-    $(function () {
-        $('#upload').change(function () {
-            var files = $('#upload')[0].files;
-            var form = new FormData();
-            for (var i = 0; i < files.length; i++) {
-                //插入FormData
-                var file = files[i];
-                form.append('files', file);
-                //显示图片
-                var fileReader = new FileReader();
-                fileReader.readAsDataURL(file);
-                fileReader.onloadend = function (event) {
-                    var src = event.target.result;
-                    $('body').append('<img src=' + src + ' width=200px>');
-                }
-            }
-            $('body').append('<p>请稍候</p>');
+    $('#upload').change(function () {
+<!--        $('body').append(‘<p>点击以下按钮输入图片</p>’);-->
+        var files = $('#upload')[0].files;
+        var form = new FormData();
 
-            $.ajax({
-                type: 'POST',
-                url: '/unet',
-                data: form,
-                processData: false,   // 不处理发送的数据
-                contentType: false,   // 不设置请求头
-                success: function (data) {
-                    $('body').append(data);
-                }
-            });
-        })
-    });
+        for (var i = 0; i < files.length; i++) {
+            //插入FormData
+            var file = files[i];
+            form.append('files', file);
+            //显示图片
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onloadend = function (event) {
+                var src = event.target.result;
+<!--                $('body').append('<img src=' + src + ' width=200px>');-->
+            }
+        }
+<!--        $('body').append('<p>请稍候</p>');-->
+
+        $.ajax({
+            type: 'POST',
+            url: '/unet',
+            data: form,
+            processData: false,   // 不处理发送的数据
+            contentType: false,   // 不设置请求头
+            success: function (data) {
+                img = $("#img1");
+                img.attr('src', data.imgPath);
+                img.show();
+
+                var costTime = data.costTime
+                var info = data.info
+                $("#costTime").text("花费时间(秒)："+ costTime);
+                $("#lables").text("识别结果："+ info);
+
+                $('body').append(data);
+<!--                $('body').append(‘<p>’ + costTime + ‘</p>’);-->
+                console.log(data);
+            }
+
+        });
+
+    })
 </script>
 </body>
 </html>
