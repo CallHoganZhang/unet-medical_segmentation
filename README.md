@@ -25,6 +25,12 @@
 	
 	4.那么每运行成功一次，就会另外在static文件夹下保存你识别的图片
 	
+### 数据集与模型的链接
+
+	网盘：https://pan.baidu.com/s/12Zzo6vVFeXovSO6eUdMVZQ 
+	
+	keys：6hs2
+
 ### 参考
 
 	https://zhuanlan.zhihu.com/p/37496466
